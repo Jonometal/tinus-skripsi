@@ -648,7 +648,7 @@ public class Main {
 //        graph.insertEdge("9", "10", 280, trayek);
 
         List<String> jalurPilihan = new ArrayList<String>();
-        Stack stackJalur = graph.floyd("1", "10");
+        Stack stackJalur = graph.floyd("SMP 5 YOGYAKARTA", "MALIOBORO 1 (GARUDA)");
         while (!stackJalur.isEmpty()) {
             jalurPilihan.add(stackJalur.pop().toString());
         }
