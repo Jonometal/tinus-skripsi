@@ -28,18 +28,18 @@ public class Graph {
     JarJalTemp sPath[];
 
     public Graph() {
-        edge = new double[10][10];
-        edgeTrayek = new ArrayList[10][10];
-        daftarVertex = new Vertex[10];
+        edge = new double[112][112];
+        edgeTrayek = new ArrayList[112][112];
+        daftarVertex = new Vertex[112];
         jumlah_vertex = 0;
         jumGraph = 0;
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 112; i++) {
+            for (int j = 0; j < 112; j++) {
                 edge[i][j] = INFINITE;
                 edgeTrayek[i][j] = null;
             }
         }
-        sPath = new JarJalTemp[10];
+        sPath = new JarJalTemp[112];
     }
 
     public void insertVortex(String vortex) {
