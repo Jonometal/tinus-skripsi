@@ -101,21 +101,23 @@ public class Graph {
         }
     }
 
-    public void displayPaths(int tujuan, int awal) {
+    public Stack displayPaths(int tujuan, int awal) {
+        Stack<String> paths = new Stack<String>();
         if (sPath[tujuan].jarak != INFINITE) {
             System.out.println("Jarak terpendek: " + sPath[tujuan].jarak);
             String myPath = daftarVertex[tujuan].nama;
             while (tujuan != awal) {
-                //System.out.println("hahahah");
+                paths.push(daftarVertex[tujuan].nama);
                 myPath = daftarVertex[sPath[tujuan].from].nama + " -- " + myPath;
-
                 tujuan = findIndex(daftarVertex[sPath[tujuan].from].nama);
             }
+            paths.push(daftarVertex[awal].nama);
             System.out.println(myPath);
         }
+        return paths;
     }
 
-    public void dijkstra(String awal, String tujuan) {
+    public Stack dijkstra(String awal, String tujuan) {
         System.out.println("DIJKSTRA");
         int a = findIndex(awal);
         int b = findIndex(tujuan);
@@ -138,11 +140,11 @@ public class Graph {
             jumGraph++;
             adjust_sPath();
         }
-        displayPaths(b, a);
         jumGraph = 0;
         for (int i = 0; i < jumlah_vertex; i++) {
             daftarVertex[i].isInGraph = false;
         }
+        return displayPaths(b, a);
     }
 
     public Stack floyd(String awal, String tujuan) {
@@ -193,5 +195,45 @@ public class Graph {
         myPath = daftarVertex[start].nama + " -- " + myPath;
         System.out.println(myPath);
         return paths;
+    }
+
+    public void perpindahanBus(Stack stackJalur) {
+        List<String> jalurPilihan = new ArrayList<String>();
+        while (!stackJalur.isEmpty()) {
+            jalurPilihan.add(stackJalur.pop().toString());
+        }
+        List<List> daftarTrayek = new ArrayList<List>();
+        for (int i = 0; i < jalurPilihan.size(); i++) {
+            if (i != 0) {
+                int awal = findIndex(jalurPilihan.get(i - 1));
+                int tujuan = findIndex(jalurPilihan.get(i));
+                daftarTrayek.add(edgeTrayek[awal][tujuan]);
+            }
+        }
+        List<String> bantu = daftarTrayek.get(0);
+        for (int i = 1; i < daftarTrayek.size(); i++) {
+            List<String> baru = new ArrayList<String>();
+            for (int j = 0; j < bantu.size(); j++) {
+                for (int k = 0; k < daftarTrayek.get(i).size(); k++) {
+                    if (bantu.get(j).equals(daftarTrayek.get(i).get(k))) {
+                        baru.add(bantu.get(j));
+                    }
+
+                }
+            }
+            if (baru.isEmpty()) {
+                for (int j = 0; j < bantu.size(); j++) {
+                    System.out.print(bantu.get(j));
+                }
+                System.out.print(" pindah di halte: " + jalurPilihan.get(i) + " ke trayek ");
+                bantu = daftarTrayek.get(i);
+
+            } else {
+                bantu = baru;
+            }
+        }
+        for (int i = 0; i < bantu.size(); i++) {
+            System.out.println(bantu.get(i));
+        }
     }
 }
