@@ -591,6 +591,10 @@ public class Main {
         graph.insertEdge("TEGAL GENDU 1", "GIWANGAN", 1.412, trayek);
         //--- Pembuatan edge/jarak (end)    
 
+        Stack stackJalur=graph.dijkstra("SMP 5 YOGYAKARTA", "MANGKUBUMI 1 (TUGU)");
+        graph.perpindahanBus(stackJalur);
+        stackJalur=graph.floyd("SMP 5 YOGYAKARTA", "MALIOBORO 1 (GARUDA)");
+        graph.perpindahanBus(stackJalur);
 //        graph.insertVortex("1");
 //        graph.insertVortex("2");
 //        graph.insertVortex("3");
@@ -647,49 +651,13 @@ public class Main {
 //        trayek.add("1A");
 //        graph.insertEdge("9", "10", 280, trayek);
 
-        List<String> jalurPilihan = new ArrayList<String>();
-        Stack stackJalur = graph.floyd("SUDRIMAN 1 (BETHESDA)", "TENTARA PELAJAR 2 (SAMSAT)");
-        while (!stackJalur.isEmpty()) {
-            jalurPilihan.add(stackJalur.pop().toString());
-        }
-        List<List> daftarTrayek = new ArrayList<List>();
-        for (int i = 0; i < jalurPilihan.size(); i++) {
-            if (i != 0) {
-                int awal = graph.findIndex(jalurPilihan.get(i - 1));
-                int tujuan = graph.findIndex(jalurPilihan.get(i));
-                daftarTrayek.add(graph.edgeTrayek[awal][tujuan]);
-            }
-        }
+        
 //        for (int i = 0; i < daftarTrayek.size(); i++) {
 //            for (int j = 0; j < daftarTrayek.get(i).size(); j++) {
 //                System.out.println(daftarTrayek.get(i).get(j));
 //            }
 //            System.out.println("-----");
-        List<String> bantu = daftarTrayek.get(0);
-        for (int i = 1; i < daftarTrayek.size(); i++) {
-            List<String> baru = new ArrayList<String>();
-            for (int j = 0; j < bantu.size(); j++) {
-                for (int k = 0; k < daftarTrayek.get(i).size(); k++) {
-                    if (bantu.get(j).equals(daftarTrayek.get(i).get(k))) {
-                        baru.add(bantu.get(j));
-                    }
-
-                }
-            }
-            if (baru.isEmpty()) {
-                for (int j = 0; j < bantu.size(); j++) {
-                    System.out.print(bantu.get(j));
-                }
-                System.out.print(" pindah di halte: " + jalurPilihan.get(i) + " ke trayek ");
-                bantu = daftarTrayek.get(i);
-
-            } else {
-                bantu = baru;
-            }
-        }
-        for (int i = 0; i < bantu.size(); i++) {
-            System.out.println(bantu.get(i));
-        }
+        
 //
 //        List<String> trayek1A = new ArrayList<String>();
 //        trayek1A.add("Trayek 1 A");
