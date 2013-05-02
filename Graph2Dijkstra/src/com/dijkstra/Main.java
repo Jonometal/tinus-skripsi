@@ -591,9 +591,16 @@ public class Main {
         graph.insertEdge("TEGAL GENDU 1", "GIWANGAN", 1.412, trayek);
         //--- Pembuatan edge/jarak (end)    
 
-        Stack stackJalur=graph.dijkstra("SMP 5 YOGYAKARTA", "MANGKUBUMI 1 (TUGU)");
+        long timeStart=System.nanoTime();
+        Stack stackJalur=graph.dijkstra("TERMINAL CONDONGCATUR", "TERMINAL JOMBOR");
+        long timeEnd=System.nanoTime();
+        System.out.println(timeEnd-timeStart);
         graph.perpindahanBus(stackJalur);
-        stackJalur=graph.floyd("SMP 5 YOGYAKARTA", "MALIOBORO 1 (GARUDA)");
+        System.out.println("-------");
+        timeStart=System.nanoTime();
+        stackJalur=graph.floyd("TERMINAL CONDONGCATUR", "TERMINAL JOMBOR");
+        timeEnd=System.nanoTime();
+        System.out.println(timeEnd-timeStart);
         graph.perpindahanBus(stackJalur);
 //        graph.insertVortex("1");
 //        graph.insertVortex("2");
