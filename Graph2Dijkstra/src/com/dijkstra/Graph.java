@@ -28,18 +28,18 @@ public class Graph {
     JarJalTemp sPath[];
 
     public Graph() {
-        edge = new double[112][112];
-        edgeTrayek = new ArrayList[112][112];
-        daftarVertex = new Vertex[112];
+        edge = new double[113][113];
+        edgeTrayek = new ArrayList[113][113];
+        daftarVertex = new Vertex[113];
         jumlah_vertex = 0;
         jumGraph = 0;
-        for (int i = 0; i < 112; i++) {
-            for (int j = 0; j < 112; j++) {
+        for (int i = 0; i < 113; i++) {
+            for (int j = 0; j < 113; j++) {
                 edge[i][j] = INFINITE;
                 edgeTrayek[i][j] = null;
             }
         }
-        sPath = new JarJalTemp[112];
+        sPath = new JarJalTemp[113];
     }
 
     public void insertVortex(String vortex) {
@@ -197,8 +197,11 @@ public class Graph {
         return paths;
     }
 
-    public void perpindahanBus(Stack stackJalur) {
+    public List<String> perpindahanBus(Stack stackJalur) {
+        List<String> answer = new ArrayList<String>();
+        int counter = 0;
         List<String> jalurPilihan = new ArrayList<String>();
+        String perpindahanBus = "";
         while (!stackJalur.isEmpty()) {
             jalurPilihan.add(stackJalur.pop().toString());
         }
@@ -223,9 +226,18 @@ public class Graph {
             }
             if (baru.isEmpty()) {
                 for (int j = 0; j < bantu.size(); j++) {
-                    System.out.print(bantu.get(j));
+                    if (counter == 0) {
+                        answer.add("Naik bus trayek: " + bantu.get(j));
+                        counter++;
+                    } else {
+                        
+                        String bantu2 = perpindahanBus + bantu.get(j);
+                        answer.add(bantu2);
+                    }
+//                    System.out.print(bantu.get(j));
                 }
-                System.out.print(" pindah di halte: " + jalurPilihan.get(i) + " ke trayek ");
+                perpindahanBus = "pindah di halte: " + jalurPilihan.get(i) + " ke trayek ";
+//                System.out.print(" pindah di halte: " + jalurPilihan.get(i) + " ke trayek ");
                 bantu = daftarTrayek.get(i);
 
             } else {
@@ -233,7 +245,9 @@ public class Graph {
             }
         }
         for (int i = 0; i < bantu.size(); i++) {
-            System.out.println(bantu.get(i));
+            answer.add(perpindahanBus+bantu.get(i));
+//            System.out.println(bantu.get(i));
         }
+        return answer;
     }
 }
