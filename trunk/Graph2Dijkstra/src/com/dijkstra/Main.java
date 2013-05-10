@@ -596,11 +596,19 @@ public class Main {
         Stack stackJalur=graph.dijkstra("SENOPATI 1 (TAMAN SENOPATI)", "KATAMSO 2 (IMMACULATA)");
         long timeEnd=System.nanoTime();
         List<String> bla=graph.perpindahanBus(stackJalur);
-        System.out.println(timeEnd-timeStart);
+        System.out.println(bla.size());
         for (int i = 0; i < bla.size(); i++) {
-            System.out.println("size: "+bla.get(i));
+            System.out.println(bla.get(i));
             
         }
+ 
+            
+            
+   
+
+            
+            
+      
 
         System.out.println("-------");
 //        timeStart=System.nanoTime();
