@@ -103,9 +103,12 @@ public class Graph {
 
     public Stack displayPaths(int tujuan, int awal) {
         Stack<String> paths = new Stack<String>();
+        System.out.println("tujuan: "+tujuan);
+        System.out.println("awal: "+awal);
         if (sPath[tujuan].jarak != INFINITE) {
             System.out.println("Jarak terpendek: " + sPath[tujuan].jarak);
             String myPath = daftarVertex[tujuan].nama;
+            paths.push(String.valueOf(sPath[tujuan].jarak));
             while (tujuan != awal) {
                 paths.push(daftarVertex[tujuan].nama);
                 myPath = daftarVertex[sPath[tujuan].from].nama + " -- " + myPath;
@@ -185,6 +188,7 @@ public class Graph {
 
         System.out.println("Jarak Terpedek: " + jarak[start][finish]);
         String myPath = daftarVertex[finish].nama + "";
+        paths.push(String.valueOf(jarak[start][finish]));
         paths.push(daftarVertex[finish].nama);
         while (path[start][finish] != start) {
             paths.push(daftarVertex[path[start][finish]].nama);
@@ -202,7 +206,7 @@ public class Graph {
         int counter = 0;
         List<String> jalurPilihan = new ArrayList<String>();
         String perpindahanBus = "";
-        while (!stackJalur.isEmpty()) {
+        while (stackJalur.size()!=1) {
             jalurPilihan.add(stackJalur.pop().toString());
         }
         List<List> daftarTrayek = new ArrayList<List>();
@@ -225,6 +229,7 @@ public class Graph {
                 }
             }
             if (baru.isEmpty()) {
+                
                 for (int j = 0; j < bantu.size(); j++) {
                     if (counter == 0) {
                         answer.add("Naik bus trayek: " + bantu.get(j));
