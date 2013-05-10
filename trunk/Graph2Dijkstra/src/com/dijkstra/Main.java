@@ -73,6 +73,7 @@ public class Main {
         graph.insertVortex("GEDONG KUNING (BANGUNTAPAN)");
         graph.insertVortex("KUSUMANEGARA (GEDUNG JUANG 45)");
         graph.insertVortex("NGEKSIGONDO (DIKLAT PU)");
+        graph.insertVortex("NGEKSIGONDO (BASEN)");
         graph.insertVortex("GEDONG KUNING (DEP.KEHUTANAN)");
         graph.insertVortex("NGESIGONDO   (BASEN)");
 
@@ -344,10 +345,10 @@ public class Main {
         graph.insertEdge("KUSUMANEGARA 4 (GEDUNG JUANG 45)", "GEDONG KUNING (BANGUNTAPAN)", 0.791, trayek);
         trayek = new ArrayList<String>();
         trayek.add("2B");
-        graph.insertEdge("GEDONG KUNING (BANGUNTAPAN)", "NGEKSIGONDO (DIKLAT PU)", 2.154, trayek);
+        graph.insertEdge("GEDONG KUNING (BANGUNTAPAN)", "NGEKSIGONDO (BASEN)", 2.154, trayek);
         trayek = new ArrayList<String>();
         trayek.add("2B");
-        graph.insertEdge("NGEKSIGONDO (DIKLAT PU)", "PASAR SENI KERAJINAN YOGYAKARTA", 1.508, trayek);
+        graph.insertEdge("NGEKSIGONDO (BASEN)", "PASAR SENI KERAJINAN YOGYAKARTA", 1.508, trayek);
         trayek = new ArrayList<String>();
         trayek.add("2B");
         graph.insertEdge("PASAR SENI KERAJINAN YOGYAKARTA", "SUGIYONO 2 (MUSEUM PERJUANGAN)", 1.581, trayek);
@@ -592,16 +593,21 @@ public class Main {
         //--- Pembuatan edge/jarak (end)    
 
         long timeStart=System.nanoTime();
-        Stack stackJalur=graph.dijkstra("TERMINAL CONDONGCATUR", "TERMINAL JOMBOR");
+        Stack stackJalur=graph.dijkstra("SENOPATI 1 (TAMAN SENOPATI)", "KATAMSO 2 (IMMACULATA)");
         long timeEnd=System.nanoTime();
+        List<String> bla=graph.perpindahanBus(stackJalur);
         System.out.println(timeEnd-timeStart);
-        graph.perpindahanBus(stackJalur);
+        for (int i = 0; i < bla.size(); i++) {
+            System.out.println("size: "+bla.get(i));
+            
+        }
+
         System.out.println("-------");
-        timeStart=System.nanoTime();
-        stackJalur=graph.floyd("TERMINAL CONDONGCATUR", "TERMINAL JOMBOR");
-        timeEnd=System.nanoTime();
-        System.out.println(timeEnd-timeStart);
-        graph.perpindahanBus(stackJalur);
+//        timeStart=System.nanoTime();
+//        stackJalur=graph.floyd("TERMINAL CONDONGCATUR", "TERMINAL JOMBOR");
+//        timeEnd=System.nanoTime();
+//        System.out.println(timeEnd-timeStart);
+//        graph.perpindahanBus(stackJalur);
 //        graph.insertVortex("1");
 //        graph.insertVortex("2");
 //        graph.insertVortex("3");
