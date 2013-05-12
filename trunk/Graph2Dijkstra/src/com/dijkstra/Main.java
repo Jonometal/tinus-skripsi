@@ -601,6 +601,7 @@ public class Main {
             System.out.println(bla.get(i));
             
         }
+//        System.out.println(java.lang.Runtime.getRuntime().maxMemory());
  
             
             
