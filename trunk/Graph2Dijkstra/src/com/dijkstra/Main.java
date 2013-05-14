@@ -593,7 +593,10 @@ public class Main {
         //--- Pembuatan edge/jarak (end)    
 
         long timeStart=System.nanoTime();
-        Stack stackJalur=graph.dijkstra("SENOPATI 1 (TAMAN SENOPATI)", "KATAMSO 2 (IMMACULATA)");
+//        Stack stackJalur=graph.dijkstra("SMP 5 YOGYAKARTA", "AHMAD YANI (BENTENG VREDEBURG)");
+        Stack stackJalur=graph.dijkstra("MALIOBORO 1 (GARUDA)", "AHMAD YANI (BENTENG VREDEBURG)");
+//        Stack stackJalur=graph.dijkstra("MALIOBORO 1 (GARUDA)", "SENOPATI 2 (TAMAN PINTAR)");
+//        Stack stackJalur=graph.dijkstra("SENOPATI 1 (TAMAN SENOPATI)", "KATAMSO 2 (IMMACULATA)");
         long timeEnd=System.nanoTime();
         List<String> bla=graph.perpindahanBus(stackJalur);
         System.out.println(bla.size());
