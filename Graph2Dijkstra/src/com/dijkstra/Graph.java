@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import java.util.StringTokenizer;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
@@ -103,8 +104,8 @@ public class Graph {
 
     public Stack displayPaths(int tujuan, int awal) {
         Stack<String> paths = new Stack<String>();
-        System.out.println("tujuan: "+tujuan);
-        System.out.println("awal: "+awal);
+        System.out.println("tujuan: " + tujuan);
+        System.out.println("awal: " + awal);
         if (sPath[tujuan].jarak != INFINITE) {
             System.out.println("Jarak terpendek: " + sPath[tujuan].jarak);
             String myPath = daftarVertex[tujuan].nama;
@@ -158,6 +159,7 @@ public class Graph {
         int bantu = finish;
         Stack<String> paths = new Stack<String>();
 
+
         int[][] path = new int[jumlah_vertex][jumlah_vertex];
         for (int i = 0; i < path.length; i++) {
             for (int j = 0; j < path.length; j++) {
@@ -206,7 +208,7 @@ public class Graph {
         int counter = 0;
         List<String> jalurPilihan = new ArrayList<String>();
         String perpindahanBus = "";
-        while (stackJalur.size()!=1) {
+        while (stackJalur.size() != 1) {
             jalurPilihan.add(stackJalur.pop().toString());
         }
         List<List> daftarTrayek = new ArrayList<List>();
@@ -218,39 +220,68 @@ public class Graph {
             }
         }
         List<String> bantu = daftarTrayek.get(0);
+        //List<String> baru = new ArrayList<String>();
+        String baru = "";
+
         for (int i = 1; i < daftarTrayek.size(); i++) {
-            List<String> baru = new ArrayList<String>();
+            baru = "";
             for (int j = 0; j < bantu.size(); j++) {
                 for (int k = 0; k < daftarTrayek.get(i).size(); k++) {
                     if (bantu.get(j).equals(daftarTrayek.get(i).get(k))) {
-                        baru.add(bantu.get(j));
+                        baru = baru + " " + bantu.get(j);
                     }
 
                 }
             }
-            if (baru.isEmpty()) {
-                
+
+            if (baru.matches("")) {
+                //if (baru.get())
+
                 for (int j = 0; j < bantu.size(); j++) {
-                    if (counter == 0) {
                         answer.add("Naik bus trayek: " + bantu.get(j));
-                        counter++;
-                    } else {
-                        
-                        String bantu2 = perpindahanBus + bantu.get(j);
-                        answer.add(bantu2);
-                    }
+                        answer.add("Pindah di halte: " + jalurPilihan.get(i));
+
+                    //        System.out.println("dafug");
+//                    if (counter == 0) {
+//                        answer.add("Naik bus trayek: " + bantu.get(j));
+//                        counter++;
+//                    } else {
+//                        
+//                        String bantu2 = perpindahanBus + bantu.get(j);
+//                        answer.add(bantu2);
+//                    }
 //                    System.out.print(bantu.get(j));
                 }
-                perpindahanBus = "pindah di halte: " + jalurPilihan.get(i) + " ke trayek ";
+//                perpindahanBus = "pindah di halte: " + jalurPilihan.get(i) + " ke trayek ";
 //                System.out.print(" pindah di halte: " + jalurPilihan.get(i) + " ke trayek ");
+
                 bantu = daftarTrayek.get(i);
 
             } else {
-                bantu = baru;
+                //System.out.println("dafug2");
+                //answer.add("pindah di halte: " + perpindahanBus + " ke trayek: ");
+                bantu.clear();
+                StringTokenizer stoken = new StringTokenizer(baru);
+                while (stoken.hasMoreElements()) {
+                    bantu.add(stoken.nextToken(" "));
+                }
+//                for (int j = 0; j < baru.size(); j++) {
+//                    if (!answer.contains(baru.get(j))) {
+//                        //answer.add(baru.get(j));
+//                        bantu.add(baru.get(j));
+//                    }
+//                }
+
+
+
             }
+
+
         }
         for (int i = 0; i < bantu.size(); i++) {
-            answer.add(perpindahanBus+bantu.get(i));
+
+                answer.add("Naik bus trayek: " + bantu.get(i));
+            
 //            System.out.println(bantu.get(i));
         }
         return answer;
